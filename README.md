@@ -1,38 +1,43 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# MiAuth Test With Next.js
 
-## Getting Started
+Misskey の認証テストです、これは Typescript を使用しています。
 
-First, run the development server:
+## 使い方
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+1. .env.local の設定をします
+2. コンソールを開き、「pnpm i」を実行します
+3. 「pnpm i」が完了したら、「pnpm build」を実行します
+4. 「pnpm build」が完了したら、「pnpm start」を実行します
+5. ブラウザで「MiAuth Test のサーバーの URL」で設定した URL にアクセスします
+
+## .env.local
+
+```
+BASE_URL=MiAuth TestのサーバーのURL(例: https://example.com)
+NEXT_PUBLIC_API_URL=MisskeyのURL(例: https://m.c30.life)
+API_SECRET=app/createで作成したApp Secret
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## app/create の使い方
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```
+1: ロゴを押します
+2: 「ツール」をホバーか押します
+3: API Consoleを押します
+4: 「EndPoint」の入力欄に「app/create」と入力します
+5: 「Params (JSON or JSON5)」の入力欄に、補完がされていると思うので、
+---
+name: アプリケーションの名前
+description: アプリケーションの説明
+permission: アプリケーションに使用する権限（Array([]<-これです)型）
+callbackUrl: 認証が完了したときにリダイレクトされるUrl（例: http://localhost:3000/api/auth/callback）(/api/auth/callbackは固定でお願いします。)
+---
+を設定します
+6: Sendボタンを押します
+7: 「Response」が出てくるので、その中の「Secret: 」の後のコピーします。
+完了
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+![1](https://f.c30.life/18mt.png)
+![2](https://f.c30.life/3oua.png)
+![3](https://f.c30.life/zcrq.png)
