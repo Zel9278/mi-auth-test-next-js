@@ -19,7 +19,7 @@ export default function Home(props: Props) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-    const { data } = await axios.post("http://localhost:8868/api/auth/url")
+    const { data } = await axios.post(`${process.env.BASE_URL}/api/auth/url`)
 
     const props: Props = {
         url: data,
