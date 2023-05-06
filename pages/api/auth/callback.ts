@@ -4,62 +4,21 @@ import crypto from "crypto"
 
 type Data = string
 
+const HOST = process.env.NEXT_PUBLIC_API_URL
+
 export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse<Data>
 ) {
-    const appSecret = process.env.API_SECRET
+    const session = req.query?.session
 
-    const { token } = req.query
-    const { data } = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/session/userkey`,
-        {
-            appSecret,
-            token,
-        }
-    )
+    const { data } = await axios.post(`${HOST}/api/miauth/${session}/check`, {})
+    const { token } = data
 
-    const i = crypto
-        .createHash("sha256")
-        .update(data.accessToken + appSecret, "utf8")
-        .digest("hex")
-
-    console.log(i)
-
+    axios.post(`${HOST}/api/notifications/create`, {
+        i: token,
+        body: "テストが完了しました",
+        header: "MiAuth Test",
+    })
     res.status(300).redirect("/")
 }
-
-/**
-"read:account"
-"write:account"
-"read:blocks"
-"write:blocks"
-"read:drive"
-"write:drive"
-"read:favorites"
-"write:favorites"
-"read:following"
-"write:following"
-"read:messaging"
-"write:messaging"
-"read:mutes"
-"write:mutes"
-"write:notes"
-"read:notifications"
-"write:notifications"
-"read:reactions"
-"write:reactions"
-"write:votes"
-"read:pages"
-"write:pages"
-"write:page-likes"
-"read:page-likes"
-"read:user-groups"
-"write:user-groups"
-"read:channels"
-"write:channels"
-"read:gallery"
-"write:gallery"
-"read:gallery-likes"
-"write:gallery-likes"
-**/

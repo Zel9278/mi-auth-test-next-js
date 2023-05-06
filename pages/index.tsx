@@ -1,10 +1,13 @@
 import Link from "next/link"
-import axios from "axios"
 import { GetServerSideProps } from "next"
+import crypto from "crypto"
 
 type Props = {
     url: string
 }
+
+const ORIGIN = process.env.NEXT_PUBLIC_API_URL
+const HOST = process.env.BASE_URL
 
 export default function Home(props: Props) {
     return (
@@ -13,21 +16,23 @@ export default function Home(props: Props) {
         >
             <Link href={props.url} className="btn btn-primary">
                 Login with Misskey(
-                {(process.env.NEXT_PUBLIC_API_URL || "").replace(
-                    /http?s:\/\//,
-                    ""
-                )}
-                )
+                {(ORIGIN || "").replace(/http?s:\/\//, "")})
             </Link>
         </main>
     )
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-    const { data } = await axios.post(`${process.env.BASE_URL}/api/auth/url`)
+    const urlSearchParam = new URLSearchParams({
+        name: "MiAuth Test",
+        callback: encodeURI(`${HOST}/api/auth/callback`),
+        permission: ["write:notes", "write:notifications"].join(","),
+        zen: "",
+    })
+    const url = `${ORIGIN}/miauth/${crypto.randomUUID()}?${urlSearchParam}`
 
     const props: Props = {
-        url: data,
+        url,
     }
 
     return {
