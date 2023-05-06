@@ -12,7 +12,7 @@ export default async function handler(
 
     const { token } = req.query
     const { data } = await axios.post(
-        `${process.env.API_URL}/api/auth/session/userkey`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/session/userkey`,
         {
             appSecret,
             token,

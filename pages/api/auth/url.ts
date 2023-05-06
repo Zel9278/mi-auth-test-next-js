@@ -10,7 +10,7 @@ export default async function handler(
     const appSecret = process.env.API_SECRET
 
     const { data } = await axios.post(
-        `${process.env.API_URL}/api/auth/session/generate`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/session/generate`,
         {
             appSecret,
         }

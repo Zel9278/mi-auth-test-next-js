@@ -12,7 +12,12 @@ export default function Home(props: Props) {
             className={`flex min-h-screen flex-col items-center justify-between p-24`}
         >
             <Link href={props.url} className="btn btn-primary">
-                Login with Misskey(m.c30.life)
+                Login with Misskey(
+                {(process.env.NEXT_PUBLIC_API_URL || "").replace(
+                    /http?s:\/\//,
+                    ""
+                )}
+                )
             </Link>
         </main>
     )
