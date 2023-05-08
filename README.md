@@ -15,4 +15,7 @@ Misskey の認証テストです、これは Typescript を使用しています
 ```
 BASE_URL=MiAuth TestのサーバーのURL(例: https://example.com)
 NEXT_PUBLIC_API_URL=MisskeyのURL(例: https://m.c30.life)
+PERMISSON=miauthに使用する権限(例: write:notes,write:notifications)
+ICON_URL=アイコンのURL(例: https://example.com/test.png)
+
 ```

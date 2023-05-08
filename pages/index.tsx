@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { GetServerSideProps } from "next"
 import crypto from "crypto"
+import { cookies } from "next/headers"
 
 type Props = {
     url: string
@@ -8,6 +9,8 @@ type Props = {
 
 const ORIGIN = process.env.NEXT_PUBLIC_API_URL
 const HOST = process.env.BASE_URL
+const PERMISSON = process.env.PERMISSON
+const ICON = process.env.ICON_URL
 
 export default function Home(props: Props) {
     return (
@@ -26,7 +29,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
     const urlSearchParam = new URLSearchParams({
         name: "MiAuth Test",
         callback: encodeURI(`${HOST}/api/auth/callback`),
-        permission: ["write:notes", "write:notifications"].join(","),
+        permission: encodeURI(PERMISSON || ""),
+        icon: encodeURI(ICON || ""),
         zen: "",
     })
     const url = `${ORIGIN}/miauth/${crypto.randomUUID()}?${urlSearchParam}`

@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import axios from "axios"
-import crypto from "crypto"
+import { cookies } from "next/headers"
 
 type Data = string
 
